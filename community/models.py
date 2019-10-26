@@ -14,7 +14,7 @@ COMMUNITY_CATEGORY = [
 class Community(models.Model):
     # one to one field
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=False, unique=True)
     title = models.CharField(max_length=100)
     text = RichTextUploadingField()
     #text = models.TextField()
