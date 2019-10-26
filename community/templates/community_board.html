@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+    <title>27W - 커뮤니티</title>
+
+    <style>
+        .nav-now, .nav-link:hover{
+            color: #ffA500 !important;
+        }
+        .account:link, .account:visited, .account:hover{
+            color: black;
+            text-decoration: none;
+        }
+        a, a:link, a:visited, a:hover{
+            text-decoration: none;
+            color:black;
+        }
+        .banner{
+            text-align: center;
+            color:white;
+        }
+        .category{
+            text-align: center;
+        }
+        .category-item{
+            text-align: center;
+            display:inline-block;
+            width:20%;
+        }
+        .num{
+            width: 10%;
+        }
+        .title{
+            width: 70%;
+        }
+        .date{
+            width: 10%;
+        }
+        .who{
+            width: 10%;
+        }
+
+        .write_btn {
+            width:60px;
+            background-color: #ffA500;
+            border: none;
+            border-radius:10px;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+            margin: 3px;
+            cursor: pointer;
+        }
+        
+        .write_btn:hover {
+            background-color: #3c3d40;
+        }
+
+    </style>
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">홈</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link nav-now" href="{% url 'community_board' %}">커뮤니티<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'lecture_board' %}">강의</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'issue_board' %}">이슈</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+    <div class="banner bg-dark">
+        <br>
+        <h3>COMMUNITY</h3>
+        <br>
+    </div>
+    <br>
+
+    <div class="category">
+        <h4 style="text-align: center;">CATEGORY</h4><br>
+        <div class="category-item">
+            <a href="">
+                <img src="{% static 'images/art.png' %}" style="width:20%; height:20%;"><br>
+                <p>예술</p>
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="">
+                <img src="{% static 'images/design.png' %}" style="width:20%; height:20%;"><br>
+                <p>디자인</p>
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="">
+                <img src="{% static 'images/social_media.png' %}" style="width:20%; height:20%;"><br>
+                <p>소셜미디어</p>
+            </a>
+        </div>
+    </div>
+
+    <br>
+
+    <hr>
+
+    {% if user.is_superuser %}
+    <p style="text-align: right; margin-right: 3%;"><a 
+        style="color: #fff;"
+        class="write_btn"
+        href="{% url 'community_new' %}">글쓰기</a></p>
+    {% endif %}
+
+    <div>
+        <hr>
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link disabled">번호</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">제목</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">작성일</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">작성자</a>
+            </li>
+        </ul>
+
+        <hr>
+
+        {% for community in community_list.all %}
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a class="nav-link disabled">(글 번호)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'community_detail' community.id %}">{{ community.title }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">{{ community.created_at }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">{{ community.user }}</a>
+            </li>
+        </ul>
+        {% endfor %}
+    <div>
+        
+    <hr>
+    <br><br>
+{% endblock %}
+
+<!--
+        <table width="100%">
+            <tr>
+                <th scope="col" class="num">글 번호</th>
+            <th scope="col" class="title">글 제목</th>
+            <th scope="col" class="date">작성일</th>
+            <th scope="col" class="who">작성자</th>
+        </tr>
+        
+        {% for community in community_list.all %}
+        <tr>
+            <td class="num"><h4>(글 번호)</h4></td>
+            <td class="title"><h4>{{ community.title }}</h4></td>
+            <td class="date"><h4>{{ community.created_at }}</h4></td>
+            <td class="who"><h4>{{ community.user }}</h4></td>
+        </tr>
+        {% endfor %}
+    </table>    
+    -->
