@@ -60,9 +60,14 @@
         <hr class="my-4">
         <br>
         
-        <p>{{community_detail.image}}</p>
-        <p>{{community_detail.text}}</p>   
-
+        <img src="{{community_detail.image.url}}">
+        
+        <br><br>
+        
+        <div>
+            <p class="lead">{{community_detail.text|safe}}</p>   
+        </div>
+        
         <br><br><br>
         <a class="btn btn-dark" href="#" role="button">수정</a>
         &nbsp;&nbsp;
