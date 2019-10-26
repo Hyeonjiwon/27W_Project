@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'issue.apps.IssueConfig',
     'lecture.apps.LectureConfig',
     'payment.apps.PaymentConfig',
+
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

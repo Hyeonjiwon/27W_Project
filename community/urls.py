@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.community_board, name='community_board'),
     path('detail/<int:community_id>', views.community_detail, name = 'community_detail'),
-    path('new/', views.community_new, name = 'community_new'),
+    #path('new/', views.community_new, name = 'community_new'),
     path('create/', views.community_create, name = 'community_create'),
+    path('delete/<int:community_id>', views.community_delete, name = 'community_delete'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

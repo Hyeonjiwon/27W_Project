@@ -17,6 +17,9 @@
             text-align: center;
             color:white;
         }
+        #detail_img {
+            width:600px;
+        }
     </style>
 {% endblock %}
 
@@ -59,9 +62,9 @@
 
         <hr class="my-4">
         <br>
-        
-        <img src="{{community_detail.image.url}}">
-        
+        {% if community_detail.image %}
+            <img id="detail_img" src="{{community_detail.image.url}}">
+        {% endif %}
         <br><br>
         
         <div>
@@ -71,7 +74,7 @@
         <br><br><br>
         <a class="btn btn-dark" href="#" role="button">수정</a>
         &nbsp;&nbsp;
-        <a class="btn btn-dark" href="#" role="button">삭제</a>
+        <a class="btn btn-dark" href="{% url 'community_delete' community_detail.id %}" role="button">삭제</a>
     </div>
         
     <br><br>
