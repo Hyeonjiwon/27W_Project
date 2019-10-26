@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+#from ckeditor.fields import RichTextField
 # Create your models here.
 
 COMMUNITY_CATEGORY = [
@@ -13,11 +14,10 @@ COMMUNITY_CATEGORY = [
 class Community(models.Model):
     # one to one field
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
-    
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     title = models.CharField(max_length=100)
-    text = RichTextField()
+    text = RichTextUploadingField()
+    #text = models.TextField()
 
     # many to one field
     #comments = models.ForeignKey(CommunityComment, on_delete=models.CASCADE)
@@ -32,9 +32,22 @@ class Community(models.Model):
     def __str__(self):
         return self.title
 
-    def delete(self, *args, **kargs):
-        os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
-        super(Community, self).delete(*args, **kargs)
+    def save(self, *args, **kwargs):
+        # delete old file when replacing by updating the file
+        try:
+            this = Community.objects.get(id=self.id)
+            if this.image != self.image:
+                this.image.delete(save=False)
+        except: pass # when new photo then we do nothing, normal case          
+        super(Community, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs): 
+        # You have to prepare what you need before delete the model 
+        storage, path = self.image.storage, self.image.path 
+        # Delete the model before the file 
+        super(Community, self).delete(*args, **kwargs) 
+        # Delete the file after the model 
+        storage.delete(path) 
 
 
 class CommunityComment(models.Model):
