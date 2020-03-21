@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+    <title>27W - 강의</title>
+
+    <style>
+        .nav-now, .nav-link:hover{
+            color: #ffA500 !important;
+        }
+        .account:link, .account:visited, .account:hover{
+            color: black;
+            text-decoration: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        ul{
+            list-style: none;
+        }
+        ul li{
+            display: inline;
+        }
+        .banner{
+            text-align: center;
+            color:white;
+        }
+        #navber{
+            overflow: hidden;
+        }
+        .content {
+            padding-top: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">홈</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'community_board' %}">커뮤니티</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link nav-now" href="{% url 'lecture_board' %}">강의<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'issue_board' %}">이슈</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="banner bg-dark">
+        <br>
+        <h3>LECTURE</h3>
+        <br>
+    </div>
+    <br>
+
+    <div>
+        <h2>강의 소개</h2>
+        <img src="{{ lecture.image.url }}">
+    </div>
+
+    <div style="position: fixed; top: 60%; right: 20%;">
+        <p>강의명: {{ lecture.title }}</p>
+        <p>가격: {{ lecture.price }}</p>
+        <p>Like: (좋아요 수)</p>
+        <button><a href="{% url 'confirm_order' %}">클래스 참여</a></button>
+    </div>
+
+    <div id="navbar">
+        <hr>
+        <ul>
+            <li><a href="#info">클래스 소개</a></li>
+            <li><a href="#curriculum">커리큘럼</a></li>
+            <li><a href="#benefit">패키지 혜택</a></li>
+            <li><a href="#creater">크리에이터</a></li>
+            <li><a href="">커뮤니티 00개</a></li>
+            <li><a href="">추천</a></li>
+            <li><a href="#refund">환불정책</a></li>
+        </ul>
+        <hr>
+    </div>
+
+    <div>
+        <div id="info" class="content">
+            <h3>{{ lecture.title }}</h3>
+            <p>{{ lecture.description }}</p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    
+        <hr>
+    
+        <div id="curriculum" class="content">
+            <h3>커리큘럼</h3>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    
+        <hr>
+    
+        <div id="benefit" class="content">
+            <h3>패키지 혜택</h3>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    
+        <hr>
+    
+        <div id="creater" class="content">
+            <h3>크리에이터</h3>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    
+        <hr>
+        
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <hr>
+        <div id="refund">
+            <h4>환불정책</h4>
+            <p>환불이 불가합니다. 그냥 들으세요. 어쩔 수 없습니다. 다음부터는 신중하게 구매하세요.</p>
+        </div>
+    </div>
+
+    <hr>
+{% endblock %}

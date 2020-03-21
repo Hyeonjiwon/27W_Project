@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+    <title>27W - 문의하기</title>
+
+    <style>
+        .nav-now, .nav-link:hover{
+            color: #ffA500 !important;
+        }
+        .account:link, .account:visited, .account:hover{
+            color: black;
+            text-decoration: none;
+        }
+        a, a:link, a:visited, a:hover{
+            text-decoration: none;
+            color:black;
+        }
+        .banner{
+            text-align: center;
+            color:white;
+        }
+        .num{
+            width: 10%;
+        }
+        .title{
+            width: 70%;
+        }
+        .date{
+            width: 10%;
+        }
+        .who{
+            width: 10%;
+        }
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">홈</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'community_board' %}">커뮤니티</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'lecture_board' %}">강의</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'issue_board' %}">이슈</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="banner bg-dark">
+        <br>
+        <h3>문의하기</h3>
+        <br>
+    </div>
+    <br>
+
+    {% if user.is_superuser %}
+    <p style="text-align: right; margin-right: 1%;"><a href="{% url 'contact_create' %}">글쓰기</a></p>
+    {% endif %}
+
+    <hr>
+
+    <table width="100%">
+        <tr>
+            <th scope="col" class="num">글 번호</th>
+            <th scope="col" class="title">글 제목</th>
+            <th scope="col" class="date">작성일</th>
+            <th scope="col" class="who">작성자</th>
+        </tr>
+        
+        {% for contact in contact_list.all %}
+        <tr>
+            <td class="num"><h4>(글 번호)</h4></td>
+            <td class="title"><h4>{{ contact.title }}</h4></td>
+            <td class="date"><h4>{{ contact.created_at }}</h4></td>
+            <td class="who"><h4>{{ contact.user }}</h4></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+{% endblock %}
